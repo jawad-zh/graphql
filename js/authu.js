@@ -17,7 +17,7 @@ export async function authuntication(){
         if (data.error){
             return 'failed'
         }
-        if (data)localStorage.setItem('token',data)
+        if (data)localStorage.setItem('token',data)            
         return 'success'
     }catch(error){
         console.log('error:',error);

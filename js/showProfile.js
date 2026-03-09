@@ -1,11 +1,15 @@
+import { loadData } from "./loadData.js"
 import { logout } from "./logout.js"
 
-export  function showProfile(){
+export async function showProfile(token){
+    let res = await loadData(token)
+    if (res.errors){console.log(res);return
+    }
     document.body.innerHTML = ``
     const Profile = `
          <div id="nav" >
             <div id="welcomingDiv">
-        <p id="wlcMessage" >Welcome<span id="userName">, jawad zahraoui</span></p>
+        <p id="wlcMessage" >Welcome<span id="userName">, ${res.data.user[0].attrs.firstName} ${res.data.user[0].attrs.lastName}</span></p>
         </div>
         <div id="logout" >logout</div>
     </div>
@@ -47,7 +51,7 @@ export  function showProfile(){
     appCountainer.innerHTML = Profile
     document.body.append(appCountainer)
 
-    document.getElementById('logout').addEventListener('click',(e)=>{
+    document.getElementById('logout').addEventListener('click',()=>{
         logout()
     })
 }

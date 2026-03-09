@@ -19,11 +19,10 @@ export async function showLogin(){
     //---------------------------------------------------------
      document.getElementById('loginButton').addEventListener('click',async (e)=>{
         e.preventDefault()
-        const  res = await authuntication()
-        console.log('authuuu reees',res);
-        
+        const  res = await authuntication()        
         if(res === 'success'){
-            showProfile()
+            let token = localStorage.getItem('token')
+            showProfile(token)
         }else{
             console.log('nnnnnnnn');
             
