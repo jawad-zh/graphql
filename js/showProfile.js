@@ -1,30 +1,39 @@
 import { loadData } from "./loadData.js"
 import { logout } from "./logout.js"
+import { xpFormate } from "./xpFormat.js";
 
 export async function showProfile(token){
     let res = await loadData(token)
     if (res.errors){console.log(res);return
-    }
+    }   
+    console.log('res',res) 
+    let totalXp = xpFormate(res.data.transaction.reduce((sum , t)=> sum + Number(t.amount),0))    
+    let level = res.data.user[0].transactions[0].amount
+    let totalDown = xpFormate(res.data.user[0].totalDown)
+    let totalUp = xpFormate(res.data.user[0].totalUp)
+    console.log('level',level);
+    
     document.body.innerHTML = ``
     const Profile = `
          <div id="nav" >
             <div id="welcomingDiv">
-        <p id="wlcMessage" >Welcome<span id="userName">, ${res.data.user[0].attrs.firstName} ${res.data.user[0].attrs.lastName}</span></p>
+        <p id="wlcMessage" >Welcome<span id="userName">, ${res.data.user[0].firstName} ${res.data.user[0].lastName}</span></p>
         </div>
         <div id="logout" >logout</div>
     </div>
     <div id="cardSection" >
         <div id="level" class="card">
             your level:
-            <p>22</p>
+            <span>${level}</span>
         </div>
         <div id="xp" class="card">
             your xp:
-            <p>356kb</p>
+            <span>${totalXp}</span>
         </div>
         <div id="audit" class="card">
-            audit:
-            <p>12</p>
+            <p> Ratio:<span> ${res.data.user[0].auditRatio.toFixed(2)}</span></p>
+            <p>Done: <span>${totalUp}</span></p>
+            <p>Receiver: <span>${totalDown}</span></p>
         </div>
     </div>
     <div id="graphContainer" >
@@ -50,7 +59,6 @@ export async function showProfile(token){
     appCountainer.setAttribute('id','appCountainer')
     appCountainer.innerHTML = Profile
     document.body.append(appCountainer)
-
     document.getElementById('logout').addEventListener('click',()=>{
         logout()
     })
