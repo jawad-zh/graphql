@@ -125,10 +125,10 @@ background-color: rgb(161, 0, 0);
     flex-direction: column;
     gap: 10px;
 }
-#userName{
+#userName {
     color: #9969FF;
 }
-.card p{
+.card span{
     color: #9969FF;
     font-weight: bolder;
 }
