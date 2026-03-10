@@ -7,114 +7,36 @@ export async function loadData(token){
                 "Authorization":"Bearer " + token
             },
             body : JSON.stringify({
-                query:`
-                {
-                audit{
-                id
-                groupId
-                auditorId
-                attrs
-                grade
-                createdAt
-                updatedAt
-                resultId
-                version
-                endAt
+                query: `
+               query {
+                 user {
+                    lastName
+                    firstName
+                    auditRatio
+                    totalDown
+                    totalUp
+                transactions(
+                    where: {
+                    type: {_eq: "level"},
+                    _or: [{object: {type: {_eq: "project"}}}, {object: {type: {_eq: "piscine"}}}]
+            }
+                order_by: {amount: desc}
+                limit: 1
+                ) {
+                     amount
+                    }
                 }
-                event{
-                id
-                createdAt
-                endAt
-                objectId
-                parentId
-                path
-                campus
+                transaction (where :{type : {_eq:"xp"},
+                _or: [{object: {type: {_eq: "project"}}},{object:{type:{_eq:"piscine"}}},{path:{_eq:"module/checkpoint"}}]
                 }
-                group{
-                id
-                objectId
-                eventId
-                captainId
-                createdAt
-                updatedAt
-                status
-                path
-                campus
-                }
-                event_user{
-                id
-                createdAt
-                userId
-                eventId
-                }
-                user {
-                id
-                login
-                profile
-                githubId
-                discordId
-                attrs
-                campus
-                }
-                record{
-                id
-                userId
-                authorId
-                message
-                createdAt
-                }
-                registration{
-                id
-                createdAt
-                startAt
-                endAt
-                objectId
-                path
-                campus
-                }
-                registration_user{
-                id
-                registrationId
-                userId
-                createdAt
-                }
-                transaction{
+                ) {
                 id
                 type
-                amount 
-                objectId
-                userId
-                createdAt
+                amount
                 path
-                }
-                progress{
-                id
-                userId
-                objectId
-                grade
-                createdAt
-                updatedAt
-                path
-                }
-                result{
-                id
-                objectId
-                userId
-                grade
-                type
-                createdAt
-                updatedAt
-                path
-                }
-                object{
-                id
-                name
-                type
-                attrs
                 }
             }
-                `
-            })
+                `})
         })
       const data = await res.json()
       console.log('data',data);
