@@ -6,7 +6,7 @@
 }
 
 body{
-    height:100vh;
+    /* height:100vh; */
     display:flex;
     justify-content:center;
     align-items:center;
@@ -162,3 +162,22 @@ background-color: rgb(161, 0, 0);
     color: white;
     margin: 5px;
 }
+.chart{
+    height: 50px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    color:white
+}
+svg{
+    background-color: #48444d;
+}
+#skillgraph{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* .test{
+    background-color: #9969FF;
+} */

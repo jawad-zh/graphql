@@ -1,45 +1,31 @@
-export async function loadData(token){
-    const dataAPI = 'https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql'
-        const res = await fetch(dataAPI,{
-            method : "POST",
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization":"Bearer " + token
-            },
-            body : JSON.stringify({
-                query: `
-               query {
-                 user {
-                    lastName
-                    firstName
-                    auditRatio
-                    totalDown
-                    totalUp
-                transactions(
-                    where: {
-                    type: {_eq: "level"},
-                    _or: [{object: {type: {_eq: "project"}}}, {object: {type: {_eq: "piscine"}}}]
-            }
-                order_by: {amount: desc}
-                limit: 1
-                ) {
-                     amount
-                    }
-                }
-                transaction (where :{type : {_eq:"xp"},
-                _or: [{object: {type: {_eq: "project"}}},{object:{type:{_eq:"piscine"}}},{path:{_eq:"module/checkpoint"}}]
-                }
-                ) {
-                id
-                type
-                amount
-                path
-                }
-            }
-                `})
-        })
-      const data = await res.json()
-      console.log('data',data);
-      
-        return data
+import {query} from '/js/querie.js';
+
+export async function loadData(token) {
+  const dataAPI = "https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql";
+  try {
+    const res = await fetch(dataAPI, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        query,
+        variables: { arg: "module/checkpoint" },
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.errors) {
+      console.error("GraphQL errors:", data.errors);
+      return null;
     }
+
+    console.log("data", data.data);
+    return data.data;
+  } catch (err) {
+    console.error("Fetch error:", err);
+    return null;
+  }
+}
