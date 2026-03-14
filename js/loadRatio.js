@@ -38,6 +38,6 @@ export function loadRatio(data){
          validedCard.innerHTML =` 
         ${validPercent.toFixed(2)}%
         `
-        validedCard.style.color="green"
-        failedCard.style.color="red"
+        validedCard.style.color="#22c55e"
+        failedCard.style.color="#ef4444"
 }

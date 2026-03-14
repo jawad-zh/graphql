@@ -30,7 +30,10 @@ export async function showProfile(token){
         your xp:
         <span>${totalXp}</span>
         </div>
-      
+      <div id="cohort" class="card">
+        your cohort:
+        <span>${res.userInfo[0].cohort[0].cohorts[0].labelName}</span>
+        </div>
     </div>
     <div id="graphContainer" >
     <div id="skills" >

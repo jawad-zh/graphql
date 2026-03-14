@@ -29,6 +29,11 @@ export  const query = `
         count
       }
     }
+      cohort: events(where: {cohorts: {labelName: {_is_null: false}}}) {
+        cohorts {
+        labelName
+        }
+    }
       }
 
       xpTransactions: transaction(
