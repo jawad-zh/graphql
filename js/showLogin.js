@@ -1,6 +1,6 @@
 import {authuntication} from './authu.js';
 import {showProfile} from './showProfile.js';
-
+import { setAlert } from './alert.js';
 export async function showLogin(){
     const body = document.body
     body.innerHTML = ``
@@ -12,10 +12,10 @@ export async function showLogin(){
         <button  id="loginButton" >login</button>
     </form>
     `
-    const form = document.createElement('form')
-    form.setAttribute('id','container')
-    form.innerHTML = login
-    body.append(form)
+    const appCountainer = document.createElement('div')
+    appCountainer.setAttribute('id','appCountainer')
+    appCountainer.innerHTML = login
+    body.append(appCountainer)
     //---------------------------------------------------------
      document.getElementById('loginButton').addEventListener('click',async (e)=>{
         e.preventDefault()
@@ -24,7 +24,7 @@ export async function showLogin(){
             let token = localStorage.getItem('token')
             showProfile(token)
         }else{
-            console.log('nnnnnnnn');
+            setAlert('error', '✖', 'invalid email/userName or password')
             
         }
     })
