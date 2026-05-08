@@ -3,7 +3,7 @@ export async function authuntication(){
     const email = document.getElementById('email-username').value.trim()
     const password = document.getElementById('password').value.trim()
     
-    const credentials = btoa(email + ":" + password) 
+    const credentials = bytesToBase64(email + ":" + password) 
     try{
         const res = await fetch(authuAPI,{
             method :"POST",
@@ -24,4 +24,12 @@ export async function authuntication(){
         return 'failed'
         
     }
+}
+
+function bytesToBase64(bytes) {
+    bytes = new TextEncoder().encode(bytes)
+  const binString = Array.from(bytes, (byte) =>
+    String.fromCodePoint(byte),
+  ).join("");
+  return btoa(binString);
 }
