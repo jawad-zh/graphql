@@ -1,6 +1,6 @@
-import { showLogin } from "./showLogin.js"
-import { checkToken } from "./checkToken.js"
-import {showProfile} from './showProfile.js';
+import { showLogin } from "../js/views/showLogin.js"
+import { checkToken } from "../js/auth/checkToken.js"
+import {showProfile} from '../js/views/showProfile.js'
 async function controler(){
     let token = localStorage.getItem('token')    
     if (!token){

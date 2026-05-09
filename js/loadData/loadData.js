@@ -1,4 +1,4 @@
-import {query} from '/js/querie.js';
+import {query} from './../querie.js';
 
 export async function loadData(token) {
   const dataAPI = "https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql";

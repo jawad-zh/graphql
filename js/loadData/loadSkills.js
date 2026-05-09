@@ -12,22 +12,18 @@ export function  loadSkills(skillData){
     }    
     const skillgraph = document.getElementById('skillgraph')
     for (let key in totalExpSkills){
-        // creat div container
 
         const chartdiv = document.createElement('div')
         chartdiv.classList.add('chart')
-        // name of skill
 
         const skillName = document.createElement('p')
         skillName.classList.add('skillName')
         skillName.innerHTML = `${key.replace("skill_","")}`
         chartdiv.append(skillName)
-        //svg
 
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute('height','100%')
         svg.setAttribute('width','100%')
-        //react
 
         const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         rect.setAttribute('x','0')
@@ -43,7 +39,7 @@ export function  loadSkills(skillData){
 
         const skillPercent = document.createElement('p')
         skillPercent.classList.add('skillPercent')
-        skillPercent.innerHTML = `${totalExpSkills[key]}%`
+        skillPercent.innerHTML = `${totalExpSkills[key]}%`||"0"
         chartdiv.append(skillPercent)
     }
     

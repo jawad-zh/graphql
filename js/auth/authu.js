@@ -1,3 +1,4 @@
+import {bytesToBase64} from "../utils/btyesToBase64.js"
 export async function authuntication(){
     const authuAPI = 'https://learn.zone01oujda.ma/api/auth/signin'
     const email = document.getElementById('email-username').value.trim()
@@ -12,7 +13,6 @@ export async function authuntication(){
             }
         })
         const data = await res.json()
-        console.log('data',data);
         
         if (data.error){
             return 'failed'
@@ -26,10 +26,3 @@ export async function authuntication(){
     }
 }
 
-function bytesToBase64(bytes) {
-    bytes = new TextEncoder().encode(bytes)
-  const binString = Array.from(bytes, (byte) =>
-    String.fromCodePoint(byte),
-  ).join("");
-  return btoa(binString);
-}

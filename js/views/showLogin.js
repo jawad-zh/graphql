@@ -1,6 +1,6 @@
-import {authuntication} from './authu.js';
-import {showProfile} from './showProfile.js';
-import { setAlert } from './alert.js';
+import {authuntication} from '../auth/authu.js';
+import {showProfile} from '../views/showProfile.js';
+import { setAlert } from '../utils/alert.js';
 export async function showLogin(){
     const body = document.body
     body.innerHTML = ``
@@ -16,8 +16,8 @@ export async function showLogin(){
     appCountainer.setAttribute('id','appCountainer')
     appCountainer.innerHTML = login
     body.append(appCountainer)
-    //---------------------------------------------------------
-     document.getElementById('loginButton').addEventListener('click',async (e)=>{
+
+    document.getElementById('loginButton').addEventListener('click',async (e)=>{
         e.preventDefault()
         const  res = await authuntication()        
         if(res === 'success'){

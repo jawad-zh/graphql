@@ -1,23 +1,23 @@
-import { loadData } from "./loadData.js"
-import { logout } from "./logout.js"
-import { xpFormate } from "./xpFormat.js";
-import {loadSkills}  from './loadSkills.js';
-import {loadProgress} from "./loadProgress.js"
-import {loadRatio} from './loadRatio.js';
+import { loadData } from "../loadData/loadData.js"
+import { logout } from "../auth/logout.js"
+import { xpFormate } from "../utils/xpFormat.js";
+import {loadSkills}  from '../loadData/loadSkills.js';
+import {loadRatio} from '../loadData/loadRatio.js';
 export async function showProfile(token){
     let res = await loadData(token)
     console.log('data from show profile',res);
     
     if (res.errors){console.log(res);return}
-    let totalXp = xpFormate(res.xpTransactions.reduce((sum , t)=> sum + Number(t.amount),0))    
-    let level = res.userInfo[0].transactions[0].amount
-    let totalDown = xpFormate(res.userInfo[0].totalDown)
-    let totalUp = xpFormate(res.userInfo[0].totalUp)  
+    // if (res.transactions.length===0 && )
+    let totalXp = xpFormate(res?.xpTransactions?.reduce((sum , t)=> sum + Number(t.amount),0)) || "0xp"    
+    let level = res?.userInfo[0]?.transactions[0]?.amount || "0"
+    let totalDown = xpFormate(res?.userInfo[0]?.totalDown)=="null"?"0":xpFormate(res?.userInfo[0]?.totalDown)
+    let totalUp = xpFormate(res?.userInfo[0]?.totalUp)=="null"?"0": xpFormate(res?.userInfo[0]?.totalUp)
     document.body.innerHTML = ``
     const Profile = `
          <div id="nav" >
          <div id="welcomingDiv">
-         <p id="wlcMessage" >Welcome<span id="userName">, ${res.userInfo[0].firstName} ${res.userInfo[0].lastName}</span></p>
+         <p id="wlcMessage" >Welcome<span id="userName">, ${res?.userInfo[0]?.firstName||"0"} ${res?.userInfo[0]?.lastName||"0"}</span></p>
         </div>
         <div id="logout" >logout</div>
     </div>
@@ -32,7 +32,7 @@ export async function showProfile(token){
         </div>
       <div id="cohort" class="card">
         your cohort:
-        <span>${res.userInfo[0].cohort[0].cohorts[0].labelName}</span>
+        <span>${res.userInfo[0]?.cohort[0]?.cohorts[0]?.labelName || "0"}</span>
         </div>
     </div>
     <div id="graphContainer" >
@@ -44,14 +44,6 @@ export async function showProfile(token){
     
     </div>
     </div>
-    <div id="progress" >
-    <div id="progressTitle" class="graphTitle">
-    your progress
-    </div>
-    <div id="progressgraph" class="graphBox">
-    
-    </div>
-  
     </div>
      <div id="ratio"  class="graphBox">
     <div id="progressTitle" class="graphTitle">
@@ -105,12 +97,12 @@ export async function showProfile(token){
 <div id="ratioCardsCountainer">
 <div  class="cardRatio">
         total Down:
-        <span>${totalDown}</span>
+        <span>${totalDown?totalDown:"0"}</span>
     
     </div>
     <div  class="cardRatio">
         total UP:
-        <span>${totalUp}</span>
+        <span>${totalUp || "0"}</span>
         </div>
    
     <div class="cardRatio">
@@ -135,6 +127,5 @@ export async function showProfile(token){
         logout()
     })
     loadSkills(res.skills)  
-    loadProgress(res.xpProgress)
     loadRatio(res.userInfo)
 }
