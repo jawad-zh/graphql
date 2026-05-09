@@ -3,6 +3,7 @@ import { logout } from "../auth/logout.js"
 import { xpFormate } from "../utils/xpFormat.js";
 import {loadSkills}  from '../loadData/loadSkills.js';
 import {loadRatio} from '../loadData/loadRatio.js';
+import { loadProjects } from "../loadData/loadProject.js";
 export async function showProfile(token){
     let res = await loadData(token)
     console.log('data from show profile',res);
@@ -118,6 +119,10 @@ export async function showProfile(token){
    </div>
 </div>
     </div>
+     <div id="lastProjectContainerId" class="graphBox" >
+        <h1 class="graphTitle">your last three project</h1>
+        
+    </div>
     `
     const appCountainer = document.createElement('div')
     appCountainer.setAttribute('id','appCountainer')
@@ -128,4 +133,5 @@ export async function showProfile(token){
     })
     loadSkills(res.skills)  
     loadRatio(res.userInfo)
+    loadProjects(res.userProject)
 }

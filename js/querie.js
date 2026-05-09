@@ -1,5 +1,28 @@
-export  const query = `
+export const query = `
     query getProfileData($arg: String!) {
+    userProject: user {
+    transactions(where: {type: {_eq: "xp"},
+      object: {type: {_eq: "project"}},
+      event: {object: {name:{_eq: "Module"}}}},
+        order_by: {createdAt: desc},
+        limit: 3) {
+      amount
+      createdAt
+
+      object{
+        name
+        progresses{
+          group{
+            captainLogin
+            members{
+              userLogin
+            }
+          }
+        }
+      }
+    }
+  }
+    
       userInfo: user {
         lastName
         firstName
