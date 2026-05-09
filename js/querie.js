@@ -52,23 +52,6 @@ export  const query = `
         path
       }
 
-      xpProgress: transaction(
-        where: {
-          type: {_eq: "xp"},
-          _or: [
-            {object: {type: {_eq: "project"}}},
-            {object: {type: {_eq: "piscine"}}}
-          ]
-        }
-        order_by: {createdAt: asc}
-      ) {
-        amount
-        createdAt
-        object {
-          name
-        }
-      }
-
       skills: transaction(
         where: { type: {_ilike: "%skill%"} }
         order_by: { amount: desc }
